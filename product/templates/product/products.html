@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Все товары в наличии</h1>
+    <ol>
+        {% for product in products %}
+            <li>{{ product }} - {{ product.category }}</li>
+        {% endfor %}
+    </ol>
+{% endblock %}
