@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    {% if product.image %}
+        <div class="col-lg-4 col-md-6 col-sm-12">
+            <img src="{{ product.image.url }}" width="100%">
+        </div>
+    {% endif %}
+    <div class="col-lg-8 col-md-6 col-sm-12">
+        <h3>{{ product }}</h3>
+        <h3>{{ product.price }}$</h3>
+        
+        <div>{{ product.description|linebreaks }}</div>
+        {% if product.avialable %}
+            <h5 class="alert alert-success">Есть в наличии</h5>
+        {% else %}
+            <h5 class="alert alert-danger">Нет в наличии</h5>
+        {% endif %}
+    </div>
+</div>
+    
+
+{% endblock %}
