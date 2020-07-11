@@ -17,6 +17,12 @@
         {% else %}
             <h5 class="alert alert-danger">Нет в наличии</h5>
         {% endif %}
+        <a
+            class="btn btn-lg btn-warning"
+            href="{% url 'product-edit' product.id %}"
+        >
+            Изменить
+        </a>
     </div>
 </div>
     
