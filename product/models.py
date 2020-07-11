@@ -18,7 +18,8 @@ class Product(models.Model):
         null=True,
         blank=True,
         upload_to="product_images",
-        verbose_name="Изображение товара"
+        verbose_name="Изображение товара",
+        default="static/no_image.png"
     )
 
     description = models.TextField(

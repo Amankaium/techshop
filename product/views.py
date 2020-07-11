@@ -17,7 +17,7 @@ def product(request, id):
 
 def product_create(request):
     if request.method == "POST":
-        form = ProductForm(request.POST)
+        form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect(products)
@@ -36,7 +36,7 @@ def product_edit(request, id):
     product = Product.objects.get(id=id)
 
     if request.method == "POST":
-        form = ProductForm(request.POST, instance=product)
+        form = ProductForm(request.POST, request.FILES, instance=product)
         if form.is_valid():
             form.save()
             return redirect("product", id=product.id)

@@ -2,3 +2,7 @@ __pycache__
 *.pyc
 db.sqlite3
 techshop/settings.py
+static/*
+media/*
+!media/static/
+
