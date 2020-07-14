@@ -31,11 +31,20 @@
         <a class="nav-link" href="{% url 'product-create' %}">Добавить товар</a>
       </li>
     </ul>
-    <form class="form-inline my-2 my-lg-0" action="{% url 'products' %}">
+    <form class="form-inline my-2 my-lg-0 mr-sm-2" action="{% url 'products' %}">
       {% csrf_token %}
       <input class="form-control mr-sm-2" type="text" name="query">
       <button class="btn btn-success my-2 my-sm-0">Поиск</button>
     </form>
+    {% if request.user.is_authenticated %}
+      <a class="btn btn-danger" href="{% url 'logout' %}">
+        Выход
+      </a>
+    {% else %}
+      <a class="btn btn-primary" href="{% url 'login' %}">
+        Вход
+      </a>
+    {% endif %}
   </nav>
   <div class="container">
     <div class="row">

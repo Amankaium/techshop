@@ -5,4 +5,5 @@ techshop/settings.py
 static/*
 media/*
 !media/static/
+.vscode
 
