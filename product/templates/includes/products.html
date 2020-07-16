@@ -1,0 +1,25 @@
+<div id="portfolio" class="container-fluid text-center bg-grey">
+    <div class="row text-center slideanim">
+    {% for product in products %}
+        <div class="col-sm-4">
+            <div class="thumbnail">
+                {% if product.image %}
+                <a href="{% url 'product' product.id %}">
+                    <img src="{{ product.image.url }}" width="200px">
+                </a>
+                {% endif %}
+                
+                <p>
+                    <strong>
+                        <a href="{% url 'product' product.id %}">
+                            {{ product.name }}
+                        </a>
+                    </strong>
+                </p>
+                
+                <p>{{ product.price|floatformat:"0" }}$</p>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+</div>
