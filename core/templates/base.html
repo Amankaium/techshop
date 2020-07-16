@@ -27,9 +27,11 @@
       <li class="nav-item">
         <a class="nav-link" href="{% url 'products' %}">Все товары</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'product-create' %}">Добавить товар</a>
-      </li>
+      {% if request.user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'product-create' %}">Добавить товар</a>
+        </li>
+      {% endif %}
     </ul>
     <form class="form-inline my-2 my-lg-0 mr-sm-2" action="{% url 'products' %}">
       {% csrf_token %}
@@ -41,8 +43,11 @@
         Выход
       </a>
     {% else %}
-      <a class="btn btn-primary" href="{% url 'login' %}">
+      <a class="btn btn-primary mr-sm-2" href="{% url 'login' %}">
         Вход
+      </a>
+      <a class="btn btn-primary" href="{% url 'registration' %}">
+        Регистрация
       </a>
     {% endif %}
   </nav>
