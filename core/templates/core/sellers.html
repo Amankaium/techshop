@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <ul>
+        {% for seller in sellers %}
+            <li>{{ seller }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

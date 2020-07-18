@@ -30,6 +30,8 @@
             >
                 Удалить
             </a>
+        {% elif product.user %}
+            <a href="{% url 'profile' product.user.id %}">{{ product.user }}</a>
         {% endif %}
     </div>
 </div>
