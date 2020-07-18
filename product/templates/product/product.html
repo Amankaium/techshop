@@ -24,6 +24,12 @@
             >
                 Изменить
             </a>
+            <a
+                class="btn btn-lg btn-danger"
+                href="{% url 'product-delete' product.id %}"
+            >
+                Удалить
+            </a>
         {% endif %}
     </div>
 </div>

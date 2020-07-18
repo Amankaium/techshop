@@ -47,6 +47,8 @@ class Product(models.Model):
     avialable = models.BooleanField(
         default=True, verbose_name="Есть в наличии")
 
+    deleted = models.BooleanField(default=False)
+
     def __str__(self):
         return self.name
 
