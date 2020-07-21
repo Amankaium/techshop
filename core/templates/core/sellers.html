@@ -1,9 +1,25 @@
 {% extends 'base.html' %}
 
-{% block content %}
-    <ul>
-        {% for seller in sellers %}
-            <li>{{ seller }}</li>
-        {% endfor %}
-    </ul>
+{% block page %}
+<br>
+    <table class="table table-hover table-striped table-active">
+        <thead>
+            <tr>
+                <th>Логин</th>
+                <th>email</th>
+                <th>ФИО</th>
+                <th>Товаров</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for seller in sellers %}
+                <tr>
+                    <td><a href="{% url 'profile' seller.id %}">{{ seller.username }}</a></td>
+                    <td>{{ seller.email }}</td>
+                    <td>{{ seller.get_full_name }}</td>
+                    <td>{{ seller.product.count }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}
