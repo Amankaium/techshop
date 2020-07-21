@@ -41,12 +41,29 @@ def logout(request):
 
 
 def registration(request):
-    if request.method == "POST":
-        form = RegistrationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect(home)
     context = {}
+    if request.method == "POST":
+        username = request.POST.get("login")
+        email = request.POST.get("email")
+        first_name = request.POST.get("first_name")
+        last_name = request.POST.get("last_name")
+        password1 = request.POST.get("password1")
+        password2 = request.POST.get("password2")
+        if password1 == password2:
+            User.objects.create_user(
+                username=username,
+                email=email,
+                first_name=first_name,
+                last_name=last_name,
+                password=password1
+            )
+            return redirect("login")
+        else:
+            context["username"] = username
+            context["email"] = email
+            context["first_name"] = first_name
+            context["last_name"] = last_name
+            context["message"] = "Пароли не совпадают"
     context["form"] = RegistrationForm()
     return render(request, "core/registration.html", context)
 

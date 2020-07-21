@@ -2,9 +2,20 @@
 {% load bootstrap4 %}
 
 {% block page %}
+    {% if message %}
+        <h3 class="alert alert-danger">
+            {{ message }}
+        </h3>
+    {% endif %}
     <form method="POST">
         {% csrf_token %}
-        {% bootstrap_form form %}
-        <button class="btn btn-primary" name="login">Зарегистрироваться</button>
+        <br>
+        <input type="text" name="login" placeholder="Логин" value="{{ username }}"><br><br>
+        <input type="email" name="email" placeholder="Email" value="{{ email }}"><br><br>
+        <input type="text" name="first_name" placeholder="Имя" value="{{ first_name }}"><br><br>
+        <input type="text" name="last_name" placeholder="Фамилия" value="{{ last_name }}"><br><br>
+        <input type="password" name="password1" placeholder="Пароль"><br><br>
+        <input type="password" name="password2" placeholder="Подтверждение пароля"><br><br>
+        <button class="btn btn-primary">Зарегистрироваться</button>
     </form>
 {% endblock %}
