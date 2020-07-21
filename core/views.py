@@ -1,6 +1,7 @@
 from django.shortcuts import render,\
     HttpResponse, redirect
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, \
+    UserCreationForm
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -43,17 +44,14 @@ def logout(request):
 def registration(request):
     context = {}
     if request.method == "POST":
-        form = RegistrationForm(request.POST)
+        form = UserCreationForm(request.POST)
         password1 = request.POST["password1"]
         password2 = request.POST["password2"]
-        if password1 == password2 and form.is_valid():
+        if form.is_valid():
             form.save()
             return redirect("login")
-        else:
-            context["form"] = form
-            context["message"] = "Форма заполнена неверно и/или пароли не совпадают"
-    else:
-        context["form"] = RegistrationForm()
+
+    context["form"] = UserCreationForm()
     return render(request, "core/registration.html", context)
 
 
