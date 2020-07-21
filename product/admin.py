@@ -14,4 +14,11 @@ class ProductAdmin(admin.ModelAdmin):
     list_per_page = 10
 
 
-admin.site.register(Category)
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    model = Category
+    list_display = [field.name for field in Category._meta.get_fields() if field.name != "product"]
+    list_editable = [f.name for f in Category._meta.get_fields() if f.name not in ["id", "product"]]
+    # list_display = ["id", "name"]
+    # list_editable = ["name"]
+    search_fields = ["name", "product__name"]
