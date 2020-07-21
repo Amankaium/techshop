@@ -44,14 +44,14 @@ def logout(request):
 def registration(request):
     context = {}
     if request.method == "POST":
-        form = UserCreationForm(request.POST)
+        form = RegistrationForm(request.POST)
         password1 = request.POST["password1"]
         password2 = request.POST["password2"]
         if form.is_valid():
             form.save()
             return redirect("login")
 
-    context["form"] = UserCreationForm()
+    context["form"] = RegistrationForm()
     return render(request, "core/registration.html", context)
 
 
