@@ -1,14 +1,12 @@
 from django.shortcuts import redirect
 from django.views.decorators.http import require_http_methods
+from django.contrib.auth.forms import PasswordChangeForm
 
 
 @require_http_methods(["POST"])
 def change_password(request):
-    user = request.user
-    password_1 = request.POST.get("password_1")
-    password_2 = request.POST.get("password_2")
-    if password_1 == password_2:
-        user.set_password(password_1)
-        user.save()
+    form = PasswordChangeForm(user=request.user, data=request.POST)
+    if form.is_valid():
+        form.save()
     
-    return redirect("profile", pk=user.id)
+    return redirect("login")
