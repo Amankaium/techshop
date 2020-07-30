@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required, \
     user_passes_test
+from django.forms import formset_factory
+from django.forms.models import modelformset_factory
+from django.urls import reverse
 from product.models import *
 from product.forms import ProductForm
 
@@ -51,7 +54,7 @@ def product_create(request):
 
     return render(
         request,
-        "product/form.html",
+        "product/create.html",
         context
     )
 
@@ -94,3 +97,33 @@ def product_delete(request, id):
     
     context["type"] = "danger"
     return render(request, "core/message.html", context)
+
+
+def category(request, pk):
+    context = {}
+    context["products"] = Product.objects.filter(
+        category__id=pk,
+        avialable=True,
+        deleted=False
+    )
+    context["category_pk"] = pk
+    return render(request, "product/products.html", context)
+
+
+def create_few(request):
+    ProductFormSet = modelformset_factory(
+        model=Product,
+        form=ProductForm,
+        extra=2
+    )
+    context = {}
+
+    if request.method == "POST":
+        formset = ProductFormSet(request.POST, request.FILES)
+        if formset.is_valid():
+            formset.save()
+            return redirect(reverse("home"))
+
+    context["formset"] = ProductFormSet(queryset=Product.objects.none())
+
+    return render(request, "product/create_few.html", context)

@@ -57,17 +57,23 @@
       </a>
     {% endif %}
   </nav>
-  <div class="container">
+  <div>
     {% block page %}
     <div class="row">
         <div class="col-lg-3 col-md-2">
-          боковая панель<br>
-          боковая панель<br>
-          боковая панель<br>
-          боковая панель<br>
-          боковая панель<br>
-          боковая панель<br>
-          боковая панель
+          <div class="list-group">
+            {% for category in categories %}
+              <a
+                href="{% url 'category' category.id %}"
+                class="list-group-item
+                  {% if category.id == category_pk %}
+                    list-group-item-info
+                  {% endif %}
+                ">
+                {{ category.name }}
+              </a>
+            {% endfor %}
+          </div>
         </div>
         <div class="col-lg-9 col-md-10"><br>
           {% block content %}
