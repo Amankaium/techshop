@@ -10,17 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 </head>
-<body>
-    
-<div class="container-fluid">
-    <br>
-    {% if message %}
-      <h3 class="alert alert-success">{{ message }}</h3>
-    {% else %}
-      <h3>Добро пожаловать в интернет магазин Tech Shop!</h3>
-    {% endif %}
-</div>
-  
+<body>  
   <nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top">
     <!-- <a class="navbar-brand" href="#">Logo</a> -->
     <ul class="navbar-nav mr-auto">
@@ -31,9 +21,17 @@
         <a class="nav-link" href="{% url 'sellers' %}">Все продавцы</a>
       </li>
       {% if request.user.is_authenticated %}
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'product-create' %}">Добавить товар</a>
-        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+            Добавить
+          </a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="{% url 'product-create' %}">Добавить товар</a>
+            {% if request.user.is_staff %}
+              <a class="dropdown-item" href="{% url 'category-create' %}">Добавить категорию</a>
+            {% endif %}
+            </div>
+        </li>         
       {% endif %}
     </ul>
     <form class="form-inline my-2 my-lg-0 mr-sm-2" action="{% url 'products' %}">
@@ -72,10 +70,21 @@
                 ">
                 {{ category.name }}
               </a>
+              {% for child_category in category.child_category.all %}
+                <a
+                  href="{% url 'category' child_category.id %}"
+                  class="list-group-item small
+                    {% if child_category.id == category_pk %}
+                      list-group-item-info
+                    {% endif %}
+                  ">
+                  - {{ child_category.name }}
+                </a>
+              {% endfor %}
             {% endfor %}
           </div>
         </div>
-        <div class="col-lg-9 col-md-10"><br>
+        <div class="col-lg-8 col-md-10"><br>
           {% block content %}
 
           {% endblock %}

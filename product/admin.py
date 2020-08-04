@@ -17,8 +17,8 @@ class ProductAdmin(admin.ModelAdmin):
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     model = Category
-    list_display = [field.name for field in Category._meta.get_fields() if field.name != "product"]
-    list_editable = [f.name for f in Category._meta.get_fields() if f.name not in ["id", "product"]]
+    list_display = [field.name for field in Category._meta.get_fields() if field.name not in ["product", "child_category"]]
+    list_editable = [f.name for f in Category._meta.get_fields() if f.name not in ["id", "product", "child_category"]]
     # list_display = ["id", "name"]
     # list_editable = ["name"]
     search_fields = ["name", "product__name"]
