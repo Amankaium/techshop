@@ -9,9 +9,15 @@
     {% endif %}
     <div class="col-lg-8 col-md-6 col-sm-12">
         <h3>
-            <a href="{% url 'category' product.category.parent_category.id %}">{{ product.category.parent_category }}</a>->
-            <a href="{% url 'category' product.category.id %}">{{ product.category }}</a>->
-            <br>{{ product }}</h3>
+            {% if product.category  %}
+                {% if product.category.parent_category %}
+                    <a href="{% url 'category' product.category.parent_category.id %}">{{ product.category.parent_category }}</a>->
+                {% endif %}
+                <a href="{% url 'category' product.category.id %}">{{ product.category }}</a>->
+                <br>
+            {% endif %}
+            {{ product }}
+        </h3>
         <h3>{{ product.price }}$</h3>
         
         <div>{{ product.description|linebreaks }}</div>

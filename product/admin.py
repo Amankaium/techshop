@@ -6,7 +6,8 @@ class ProductAdmin(admin.ModelAdmin):
     model = Product
     # fields = [field.name for field in Product._meta.get_fields()[1:]]
     readonly_fields = ["user", "sales", "price", "avialable", "deleted"]
-    list_display = [field.name for field in Product._meta.get_fields()]
+    # list_display = [field.name for field in Product._meta.get_fields()]
+    list_display = ["id", "name", "user", "price", "category"]
     list_display_links = ("id", "name", "user")
     list_editable = ("price",)
     search_fields = ["name", "description", "user__username"]

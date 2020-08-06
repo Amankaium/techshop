@@ -11,6 +11,7 @@ from django.views.generic import TemplateView, DetailView, \
 from django.utils.decorators import method_decorator
 from product.models import *
 from product.forms import *
+from product.mixins import IsStaffAccessMixin
 
 
 def products(request):
@@ -216,12 +217,12 @@ def create_few(request):
 #     return render(request, "product/create_category.html", context)
 
 
-class CategeryCreate(CreateView):
+class CategeryCreate(IsStaffAccessMixin, CreateView):
     model = Category
     fields = ["name", "description"]
     template_name = "product/create_category.html"
     success_url = reverse_lazy("products")
 
-    @method_decorator(user_passes_test(lambda user: user.is_staff))
-    def dispatch(self, *args, **kwargs):
-        return super().dispatch(*args, **kwargs)
+    # @method_decorator(user_passes_test(lambda user: user.is_staff))
+    # def dispatch(self, *args, **kwargs):
+    #     return super().dispatch(*args, **kwargs)
