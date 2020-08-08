@@ -44,25 +44,43 @@ class ProductList(ListView):
 
 def product(request, id):
     context = {}
-    context["product"] = Product.objects.get(id=id)
+    try:
+        context["product"] = Product.objects.get(id=id)
+    except:
+        context["type"] = "danger"
+        context["message"] = "Такого товара нет"
+        return render(request, "core/message.html", context)
     return render(request, "product/product.html", context)
 
 
-class ProductView(TemplateView):
-    template_name = "product/product.html"
+# class ProductView(TemplateView):
+#     template_name = "product/product.html"
 
-    def get_context_data(self, **kwargs):
-        context = {}
-        pk = self.kwargs["pk"]
-        product = Product.objects.get(id=pk)
-        context["product"] = product
-        return context
+#     def get_context_data(self, **kwargs):
+#         context = {}
+#         pk = self.kwargs["pk"]
+#         product = Product.objects.get(id=pk)
+#         context["product"] = product
+#         return context
 
 
 class ProductDetailView(DetailView):
     template_name = "product/product.html"
     model = Product
 
+    def get_context_data(self, **kwargs):
+        context = super(ProductDetailView, self).get_context_data(**kwargs)
+        product = Product.objects.get(id=self.kwargs["pk"])
+        breadcrumbs = []
+        category = product.category
+        while True:
+            if category:
+                breadcrumbs = [category] + breadcrumbs
+                category = category.parent_category
+            else:
+                break
+        context["breadcrumbs"] = breadcrumbs
+        return context
 
 
 @login_required(login_url="login")

@@ -8,16 +8,21 @@
         </div>
     {% endif %}
     <div class="col-lg-8 col-md-6 col-sm-12">
-        <h3>
-            {% if product.category  %}
-                {% if product.category.parent_category %}
-                    <a href="{% url 'category' product.category.parent_category.id %}">{{ product.category.parent_category }}</a>->
-                {% endif %}
-                <a href="{% url 'category' product.category.id %}">{{ product.category }}</a>->
-                <br>
-            {% endif %}
-            {{ product }}
-        </h3>
+        
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                {% for category in breadcrumbs %}
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'category' category.id %}">
+                            {{ category.name }}
+                        </a>
+                    </li>
+                {% endfor %}
+                <li class="breadcrumb-item active" aria-current="page">{{ product }}</li>
+            </ol>
+        </nav>               
+            
+        
         <h3>{{ product.price }}$</h3>
         
         <div>{{ product.description|linebreaks }}</div>

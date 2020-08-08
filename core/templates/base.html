@@ -61,26 +61,7 @@
         <div class="col-lg-3 col-md-2">
           <div class="list-group">
             {% for category in categories %}
-              <a
-                href="{% url 'category' category.id %}"
-                class="list-group-item
-                  {% if category.id == category_pk %}
-                    list-group-item-info
-                  {% endif %}
-                ">
-                {{ category.name }}
-              </a>
-              {% for child_category in category.child_category.all %}
-                <a
-                  href="{% url 'category' child_category.id %}"
-                  class="list-group-item small
-                    {% if child_category.id == category_pk %}
-                      list-group-item-info
-                    {% endif %}
-                  ">
-                  - {{ child_category.name }}
-                </a>
-              {% endfor %}
+              {% include "includes/category.html" %}
             {% endfor %}
           </div>
         </div>

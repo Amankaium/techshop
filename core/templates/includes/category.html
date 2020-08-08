@@ -1,0 +1,20 @@
+
+<div
+    
+    class="list-group-item d-flex justify-content-between
+        {% if category.id == category_pk %}
+        list-group-item-info
+        {% endif %}
+    ">
+    <a href="{% url 'category' category.id %}">{{ category.name }}</a>
+    {% if category.child_category.count %}
+    <a href="#collapse{{ category.id }}" data-toggle="collapse"> v </a>
+</div>
+<div id="collapse{{ category.id }}" class="collapse">
+{% for category in category.child_category.all %}
+    {% include 'includes/category.html' %}
+{% endfor %}
+</div>
+{% else %}
+</div>
+{% endif %}

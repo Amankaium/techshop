@@ -1,0 +1,6 @@
+{% trans product.category as category %}
+{% if category.parent_category %}
+    {% include 'includes/breadcrumbs' %}
+{% endif %}
+<a href="{% url 'category' product.category.id %}">{{ product.category }}</a>->
+<br>
