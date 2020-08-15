@@ -28,5 +28,5 @@ class AuthTestCase(TestCase):
         
         # assert "form" in driver.page_source
         self.assertIn("form", driver.page_source)
-
         # sleep(3)
+        driver.close()
