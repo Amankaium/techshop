@@ -64,6 +64,18 @@
               {% include "includes/category.html" %}
             {% endfor %}
           </div>
+          <br>          
+          <h4 class="alert alert-success">Станем лучше вместе!</h4>
+          <div class="container-fluid">
+            <h6>Вы можете оставиль обратную связь, мы это очень ценим!</h6>
+            <form action="{% url 'feedback' %}" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+              {% bootstrap_form feedback_form %}
+              <button class="btn btn-info">
+                Отправить
+              </button>
+            </form>
+          </div>
         </div>
         <div class="col-lg-8 col-md-10"><br>
           {% block content %}
