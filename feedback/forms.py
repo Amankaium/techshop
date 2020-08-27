@@ -5,4 +5,4 @@ class FeedBackForm(forms.ModelForm):
     # text = forms.TextInput(attrs={"rows": "3"})
     class Meta:
         model = FeedBack
-        fields = ["name", "text", "screen"]
+        fields = ["name", "text", "screen", "phone", "email"]

@@ -28,6 +28,18 @@ class FeedBack(models.Model):
 
     date = models.DateTimeField(auto_now_add=True)
 
+    phone = models.CharField(
+        max_length=255,
+        null=True, blank=True,
+        verbose_name="Номер телефона"
+    )
+
+    email = models.EmailField(
+        max_length=255,
+        null=True, blank=True,
+        verbose_name="Электронная почта"
+    )
+
     class Meta:
         verbose_name = "Обратная связь"
         verbose_name_plural = "Формы обратной связи"
