@@ -40,6 +40,8 @@ class FeedBack(models.Model):
         verbose_name="Электронная почта"
     )
 
+    answer = models.TextField(null=True, blank=True)
+
     class Meta:
         verbose_name = "Обратная связь"
         verbose_name_plural = "Формы обратной связи"
