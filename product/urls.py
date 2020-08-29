@@ -12,4 +12,5 @@ urlpatterns = [
     path("create-few/", create_few, name="product-create-few"),
     path("edit/<int:id>/", product_edit, name="product-edit"),
     path("delete/<int:id>/", product_delete, name="product-delete"),
+    path("add-to-cart/<int:id>", add_to_cart, name="add-to-cart"),
 ]

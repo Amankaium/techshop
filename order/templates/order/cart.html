@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Корзина:</h1>
+    <ol>
+    {% for pic in cart.product_in_cart.all %}
+        <li>{{ pic.product.name }}</li>
+    {% endfor %}
+    </ol>
+{% endblock %}

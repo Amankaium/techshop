@@ -1,25 +1,25 @@
 from django.contrib import admin
 from .models import *
 
-class ProductInOrderInline(admin.StackedInline):
-    model = ProductInOrder
+class ProductInCartInline(admin.StackedInline):
+    model = ProductInCart
     extra = 0
 
 
-@admin.register(Order)
-class OrderAdmin(admin.ModelAdmin):
-    model = Order
+@admin.register(Cart)
+class CartAdmin(admin.ModelAdmin):
+    model = Cart
     list_display = ["name", "phone", "get_product_count"]
     inlines = [
-        ProductInOrderInline
+        ProductInCartInline
     ]
 
     def get_product_count(self, obj):
-        return obj.product_in_order.count()
+        return obj.product_in_cart.count()
 
 
-@admin.register(ProductInOrder)
-class ProductInOrderAdmin(admin.ModelAdmin):
-    model = ProductInOrder
-    list_display = ("order", "product", "added")
-    readonly_fields = ("order", "product", "added")
+@admin.register(ProductInCart)
+class ProductInCartAdmin(admin.ModelAdmin):
+    model = ProductInCart
+    list_display = ("cart", "product", "added")
+    readonly_fields = ("cart", "product", "added")

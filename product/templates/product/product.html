@@ -44,9 +44,13 @@
             >
                 Удалить
             </a>
+            <br>
+            <br>
         {% elif product.user %}
             <a href="{% url 'profile' product.user.id %}">{{ product.user }}</a>
+            <br>
         {% endif %}
+            <a class='btn btn-lg btn-success' href="{% url 'add-to-cart' product.id %}">Добавить в корзину</a>
     </div>
 </div>
     

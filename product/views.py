@@ -12,6 +12,7 @@ from django.utils.decorators import method_decorator
 from product.models import *
 from product.forms import *
 from product.mixins import IsStaffAccessMixin
+from order.models import *
 
 
 def products(request):
@@ -244,3 +245,20 @@ class CategeryCreate(IsStaffAccessMixin, CreateView):
     # @method_decorator(user_passes_test(lambda user: user.is_staff))
     # def dispatch(self, *args, **kwargs):
     #     return super().dispatch(*args, **kwargs)
+
+
+def add_to_cart(request, id):
+    if "cart" not in request.session:
+        cart = Cart()
+        cart.save()
+        request.session["cart"] = cart.id
+    else:
+        cart_id = request.session["cart"]
+        cart = Cart.objects.get(id=cart_id)
+    
+    # request.session["cart"].append(id)
+    # print(request.session["cart"])
+    product = Product.objects.get(id=id)
+    pic = ProductInCart(product=product, cart=cart)
+    pic.save()
+    return redirect("product", pk=id)
