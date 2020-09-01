@@ -7,4 +7,5 @@ media/*
 !media/static/
 .vscode
 chromedriver.exe
+db.json
 
